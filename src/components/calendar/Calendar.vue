@@ -1,0 +1,51 @@
+<template>
+  <div class="bg-white rounded-lg border border-gray-200">
+    <CalendarHeader />
+    <CalendarGrid @open-day="openAllForDay" @new="openNew" @open-reminder="openEdit" />
+
+    <Teleport to="body">
+      <ReminderModal
+        v-if="modalOpen"
+        :initial="editing"
+        @close="closeModal"
+        @saved="closeModal"
+      />
+    </Teleport>
+  </div>
+</template>
+
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import CalendarHeader from './CalendarHeader.vue'
+import CalendarGrid from './CalendarGrid.vue'
+import ReminderModal from './ReminderModal.vue'
+import type { Reminder } from '@/types/Reminder'
+
+const modalOpen = ref(false)
+const editing = ref<Reminder | null>(null)
+
+function openNew(dateISO?: string) {
+  editing.value = {
+    id: crypto.randomUUID(),
+    dateISO: dateISO ?? '',
+    time: '09:00',
+    text: '',
+    city: '',
+    color: '#3b82f6',
+    weather: null
+  }
+  modalOpen.value = true
+}
+function openEdit(rem: Reminder) {
+  editing.value = { ...rem }
+  modalOpen.value = true
+}
+function openAllForDay(iso: string) {
+  openNew(iso)
+}
+function closeModal() {
+  modalOpen.value = false
+  editing.value = null
+}
+</script>

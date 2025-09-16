@@ -1,0 +1,22 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+const DashboardLayout = () => import('@/layouts/DashboardLayout.vue')
+const DashboardHome   = () => import('@/views/DashboardHome.vue')
+const CalendarPage    = () => import('@/views/CalendarPage.vue')
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    {
+      path: '/',
+      component: DashboardLayout,
+      children: [
+        { path: '', name: 'home', component: DashboardHome },
+        { path: 'calendar', name: 'calendar', component: CalendarPage },
+      ],
+    },
+    { path: '/:pathMatch(.*)*', redirect: '/' },
+  ],
+})
+
+export default router
