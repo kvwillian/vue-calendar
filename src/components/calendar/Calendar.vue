@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded-lg border border-gray-200">
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
     <CalendarHeader />
     <CalendarGrid @open-day="openAllForDay" @new="openNew" @open-reminder="openEdit" />
 

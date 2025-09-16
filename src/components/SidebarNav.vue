@@ -2,7 +2,7 @@
   <nav class="h-full flex flex-col">
     <RouterLink
       to="/calendar"
-      class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-100"
+      class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
       :class="linkClass('/calendar')"
       @click="$emit('navigate')"
     >
@@ -11,7 +11,7 @@
 
     <RouterLink
       to="/"
-      class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-100"
+      class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
       :class="linkClass('/')"
       @click="$emit('navigate')"
     >
@@ -20,14 +20,14 @@
 
     <RouterLink
       to="/settings"
-      class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-100"
+      class="flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
       :class="linkClass('/settings')"
       @click="$emit('navigate')"
     >
       <IconSettings class="w-5 h-5" /> <span>Settings</span>
     </RouterLink>
 
-    <div class="mt-auto p-3 text-xs text-gray-500">
+    <div class="mt-auto p-3 text-xs text-gray-500 dark:text-gray-400">
       v1.0 • Made with Vue + Tailwind
     </div>
   </nav>
@@ -40,7 +40,7 @@ defineEmits<{(e:'navigate'):void}>()
 
 function linkClass(path:string) {
   const active = route.path === path || (path !== '/' && route.path.startsWith(path))
-  return active ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
+  return active ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 font-medium' : 'text-gray-700 dark:text-gray-300'
 }
 </script>
 

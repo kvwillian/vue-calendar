@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-white rounded-lg border border-gray-200 p-4">
-    <div class="text-sm text-gray-500">{{ label }}</div>
-    <div class="mt-1 text-2xl font-semibold">{{ value }}</div>
-    <div v-if="hint" class="mt-2 text-xs text-gray-500">{{ hint }}</div>
+  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+    <div class="text-sm text-gray-500 dark:text-gray-400">{{ label }}</div>
+    <div class="mt-1 text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ value }}</div>
+    <div v-if="hint" class="mt-2 text-xs text-gray-500 dark:text-gray-400">{{ hint }}</div>
   </div>
 </template>
 
