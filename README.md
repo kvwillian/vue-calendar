@@ -39,7 +39,7 @@ A modern, feature-rich calendar application built with Vue 3 and TypeScript. Thi
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/kvwillian/vue-calendar
    cd calendar-app
    ```
 
