@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
-:root { 
-  color-scheme: light; 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html { @apply text-gray-900; }
+  html.dark { @apply text-gray-100; }
 }
 
-.dark {
-  color-scheme: dark;
-}
+:root { color-scheme: light; }
+.dark { color-scheme: dark; }

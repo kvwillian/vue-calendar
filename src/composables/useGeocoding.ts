@@ -1,9 +1,8 @@
 import type { Location } from '@/types/Location'
 
-const API = import.meta.env.VITE_OWM_API_KEY as string | undefined
-
 export function useGeocoding() {
   async function searchCities(query: string, limit = 5): Promise<Location[]> {
+    const API = import.meta.env.VITE_OWM_API_KEY as string | undefined
     if (!API || !query.trim()) return []
     const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(query)}&limit=${limit}&appid=${API}`
     const r = await fetch(url)

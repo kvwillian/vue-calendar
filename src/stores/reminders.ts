@@ -24,15 +24,15 @@ export const useReminders = defineStore('reminders', () => {
 
   const byDay = (dateISO: string) => computed(() =>
     items.value
-      .filter(r => r.dateISO === dateISO)
-      .sort((a, b) => a.time.localeCompare(b.time))
+      .filter((r: Reminder) => r.dateISO === dateISO)
+      .sort((a: Reminder, b: Reminder) => a.time.localeCompare(b.time))
   )
 
   const byMonth = (year: number, monthIdx0: number) => computed(() =>
-    items.value.filter(r => isSameMonth(parseISO(r.dateISO), new Date(year, monthIdx0, 1)))
+    items.value.filter((r: Reminder) => isSameMonth(parseISO(r.dateISO), new Date(year, monthIdx0, 1)))
   )
 
-  watch(items, (val) => {
+  watch(items, (val: Reminder[]) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(val))
   }, { deep: true })
 

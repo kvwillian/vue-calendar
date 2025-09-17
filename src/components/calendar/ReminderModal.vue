@@ -34,7 +34,7 @@
 
       <label class="block text-sm text-gray-700 dark:text-gray-300">
         <span class="block mb-1">Time</span>
-        <input type="time" v-model="form.time" class="w-full px-3 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+        <input type="time" v-model="form.time" class="w-full px-3 py-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-100" required>
       </label>
 
       <label class="block text-sm text-gray-700 dark:text-gray-300">
@@ -44,10 +44,12 @@
 
       <CitySelect v-model="form.loc" />
 
-      <label class="block text-sm text-gray-700 dark:text-gray-300">
+      <div class="block text-sm text-gray-700 dark:text-gray-300">
         <span class="block mb-1">Color</span>
-        <input type="color" v-model="form.color" class="h-9 w-14 block rounded border border-gray-300 dark:border-gray-600 p-0">
-      </label>
+        <div class="inline-block">
+          <input type="color" v-model="form.color" class="h-9 w-14 block rounded border border-gray-300 dark:border-gray-600 p-0 cursor-pointer">
+        </div>
+      </div>
 
       <div class="text-xs text-gray-600 dark:text-gray-400 min-h-4">
         <template v-if="form.loc && form.dateISO">
@@ -55,7 +57,7 @@
           <span v-else>Fetching forecast…</span>
         </template>
         <template v-else>
-          <span class="text-gray-400 dark:text-gray-500">Pick a city and date to preview weather</span>
+          <span class="text-gray-200 dark:text-gray-500">Pick a city and date to preview weather</span>
         </template>
       </div>
 
@@ -110,8 +112,8 @@ const isEdit = computed(
   () => !!props.initial && !!store.items.find(r => r.id === props.initial!.id)
 )
 
-watch(() => [form.loc, form.dateISO], async ([loc, date]) => {
-  if (loc && date) {
+watch([() => form.loc, () => form.dateISO], async ([loc, date]: [Location | null, string]) => {
+  if (loc && date && typeof loc === 'object') {
     form.city = [loc.name, loc.state, loc.country].filter(Boolean).join(', ')
     form.weather = await weather.getForecastByCoords(loc.lat, loc.lon, date)
   } else {

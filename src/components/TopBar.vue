@@ -5,7 +5,6 @@
     </button>
 
     <RouterLink to="/" class="flex items-center gap-2 font-semibold">
-      <span class="inline-grid place-content-center w-8 h-8 rounded bg-blue-600 text-white">C</span>
       <span class="hidden sm:block">Calendar Dashboard</span>
     </RouterLink>
 
@@ -14,11 +13,12 @@
       <RouterLink to="/settings" class="px-3 py-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">Settings</RouterLink>
       
       <!-- Theme Toggle Button -->
-      <button 
-        @click="themeStore.toggleTheme()"
-        class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-        :aria-label="themeStore.isDark ? 'Switch to light mode' : 'Switch to dark mode'"
-      >
+      <div class="flex items-center gap-2">
+        <button 
+          @click="handleThemeToggle"
+          class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          :aria-label="themeStore.isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
         <!-- Sun icon for light mode -->
         <svg 
           v-if="themeStore.isDark" 
@@ -38,7 +38,8 @@
         >
           <path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"/>
         </svg>
-      </button>
+        </button>
+      </div>
       
       <button class="ml-2 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600" aria-label="Conta"></button>
     </div>
@@ -51,4 +52,8 @@ import { useThemeStore } from '@/stores/theme'
 defineEmits<{(e:'toggle-sidebar'):void}>()
 
 const themeStore = useThemeStore()
+
+function handleThemeToggle() {
+  themeStore.toggleTheme();
+}
 </script>

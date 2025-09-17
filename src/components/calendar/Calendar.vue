@@ -24,7 +24,6 @@ import type { Reminder } from '@/types/Reminder'
 
 const modalOpen = ref(false)
 const editing = ref<Reminder | null>(null)
-
 function openNew(dateISO?: string) {
   editing.value = {
     id: crypto.randomUUID(),
@@ -33,6 +32,7 @@ function openNew(dateISO?: string) {
     text: '',
     city: '',
     color: '#3b82f6',
+    loc: null,
     weather: null
   }
   modalOpen.value = true

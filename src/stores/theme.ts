@@ -26,11 +26,10 @@ export const useThemeStore = defineStore('theme', () => {
         return stored as Theme;
       }
     } catch (e) {
-      console.error('Failed to load theme from storage', e);
     }
     
-    // Fallback para o tema do sistema, se disponível, ou light
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
         return THEMES.DARK;
     }
     
@@ -47,14 +46,19 @@ export const useThemeStore = defineStore('theme', () => {
     currentTheme.value = theme;
   }
 
-  const isDark = computed(() => currentTheme.value === THEMES.DARK);
-  const isLight = computed(() => currentTheme.value === THEMES.LIGHT);
+  const isDark = computed(() => {
+    return currentTheme.value === THEMES.DARK;
+    
+  });
+  const isLight = computed(() => {
+      return currentTheme.value === THEMES.LIGHT;
+  });
 
-  watch(currentTheme, (newTheme) => {
+  watch(currentTheme, (newTheme: Theme) => {
     applyThemeToDocument(newTheme);
   }, { immediate: true });
 
-  watch(currentTheme, (newTheme) => {
+  watch(currentTheme, (newTheme: Theme) => {
     localStorage.setItem(STORAGE_KEY, newTheme);
   });
 

@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-6">
-    <h1 class="text-2xl font-semibold">Home</h1>
+    <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Home</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       <StatCard
@@ -27,44 +27,44 @@
 
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
       <section class="xl:col-span-2">
-        <div class="bg-white border border-gray-200 rounded-lg p-4">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
           <div class="flex items-center justify-between">
-            <h2 class="font-medium">Next reminders</h2>
-            <RouterLink to="/calendar" class="text-blue-700 hover:underline text-sm">open calendar</RouterLink>
+            <h2 class="font-medium text-gray-900 dark:text-gray-100">Next reminders</h2>
+            <RouterLink to="/calendar" class="text-blue-700 dark:text-blue-400 hover:underline text-sm">open calendar</RouterLink>
           </div>
 
-          <ul v-if="upcoming.length" class="mt-3 divide-y">
+          <ul v-if="upcoming.length" class="mt-3 divide-y divide-gray-200 dark:divide-gray-700">
             <li v-for="r in upcoming" :key="r.id" class="py-2 flex items-center gap-3">
               <span class="w-2.5 h-2.5 rounded-full" :style="{ backgroundColor: r.color }"></span>
-              <div class="min-w-32 text-sm tabular-nums text-gray-700">
+              <div class="min-w-32 text-sm tabular-nums text-gray-700 dark:text-gray-300">
                 {{ formatDate(r.dateISO) }} · {{ r.time }}
               </div>
               <div class="flex-1 min-w-0">
-                <div class="text-sm truncate font-medium">{{ r.text }}</div>
-                <div class="text-xs text-gray-500 truncate">
+                <div class="text-sm truncate font-medium text-gray-900 dark:text-gray-100">{{ r.text }}</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 truncate">
                   {{ r.city }} <span v-if="r.weather">• {{ r.weather.summary }}</span>
                 </div>
               </div>
               <RouterLink
                 to="/calendar"
-                class="text-xs px-2 py-1 rounded border hover:bg-gray-50 shrink-0"
+                class="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 shrink-0"
                 title="Open in calendar"
               >view</RouterLink>
             </li>
           </ul>
 
-          <div v-else class="mt-4 text-sm text-gray-600">
-            No upcoming reminders. <RouterLink to="/calendar" class="text-blue-700 underline">Create one</RouterLink>.
+          <div v-else class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+            No upcoming reminders. <RouterLink to="/calendar" class="text-blue-700 dark:text-blue-400 underline">Create one</RouterLink>.
           </div>
         </div>
       </section>
 
       <section>
-        <div class="bg-white border border-gray-200 rounded-lg p-4">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
           <div class="flex items-center justify-between">
-            <h2 class="font-medium">Weather by city</h2>
+            <h2 class="font-medium text-gray-900 dark:text-gray-100">Weather by city</h2>
             <button
-              class="text-sm px-2 py-1 rounded border hover:bg-gray-50"
+              class="text-sm px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
               @click="refreshForecasts"
               :disabled="loading"
             >
@@ -76,24 +76,24 @@
             <div
               v-for="c in cityCards"
               :key="c.key"
-              class="border border-gray-200 rounded-lg p-3 flex items-center gap-3"
+              class="border border-gray-200 dark:border-gray-700 rounded-lg p-3 flex items-center gap-3 bg-gray-50 dark:bg-gray-700"
             >
               <div class="flex-1 min-w-0">
-                <div class="font-medium truncate">
+                <div class="font-medium truncate text-gray-900 dark:text-gray-100">
                   {{ c.label }}
                 </div>
-                <div class="text-xs text-gray-500">
+                <div class="text-xs text-gray-500 dark:text-gray-400">
                   Next on {{ format(parseISO(c.nextDateISO), 'EEE, MMM d') }}
                 </div>
                 <div class="mt-1 text-sm flex items-center gap-2">
                   <img v-if="c.iconUrl" :src="c.iconUrl" alt="" class="w-6 h-6" />
-                  <span class="truncate">{{ c.summary || '—' }}</span>
+                  <span class="truncate text-gray-700 dark:text-gray-300">{{ c.summary || '—' }}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div v-else class="mt-3 text-sm text-gray-600">
+          <div v-else class="mt-3 text-sm text-gray-600 dark:text-gray-400">
             No cities yet. Create a reminder and pick a city.
           </div>
         </div>
@@ -134,7 +134,7 @@ const weekEnd   = endOfWeek(todayStart,   { weekStartsOn: 0 })
 const weekRangeLabel = `${format(weekStart, 'MMM d')}–${format(weekEnd, 'MMM d')}`
 
 const sortedAll = computed(() =>
-  [...store.items].sort((a, b) => {
+  [...store.items].sort((a: Reminder, b: Reminder) => {
     const da = toDateTimeISO(a.dateISO, a.time)
     const db = toDateTimeISO(b.dateISO, b.time)
     return compareAsc(da, db)
@@ -143,7 +143,7 @@ const sortedAll = computed(() =>
 
 const upcoming = computed(() =>
   sortedAll.value
-    .filter(r => {
+    .filter((r: Reminder) => {
       const dt = toDateTimeISO(r.dateISO, r.time)
       return isAfter(dt, now) || isEqual(startOfDay(dt), todayStart)
     })
@@ -152,22 +152,22 @@ const upcoming = computed(() =>
 
 const counts = computed(() => {
   const total = store.items.length
-  const today = store.items.filter(r => {
+  const today = store.items.filter((r: Reminder) => {
     const d = parseISO(r.dateISO)
     return isEqual(startOfDay(d), todayStart)
   }).length
 
-  const thisWeek = store.items.filter(r => {
+  const thisWeek = store.items.filter((r: Reminder) => {
     const d = parseISO(r.dateISO)
     return (isAfter(d, addDays(weekStart, -1)) && isBefore(d, addDays(weekEnd, 1)))
   }).length
 
-  const citySet = new Set(store.items.map(r => r.city.trim()).filter(Boolean))
+  const citySet = new Set(store.items.map((r: Reminder) => r.city.trim()).filter(Boolean))
   return { total, today, thisWeek, cities: citySet.size }
 })
 
 const cityListHint = computed(() => {
-  const citySet = new Set(store.items.map(r => r.city.trim()).filter(Boolean))
+  const citySet = new Set(store.items.map((r: Reminder) => r.city.trim()).filter(Boolean))
   const arr = Array.from(citySet).slice(0, 3)
   const more = citySet.size - arr.length
   return more > 0 ? `${arr.join(', ')} +${more} more` : arr.join(', ')
@@ -191,7 +191,7 @@ async function refreshForecasts() {
   const out: CityCard[] = []
 
   await Promise.all(
-    groups.map(async g => {
+    groups.map(async (g: { loc: Location; nextDateISO: string }) => {
       const fc = await weather.getForecastByCoords(g.loc.lat, g.loc.lon, g.nextDateISO)
       out.push({
         key: `${g.loc.lat.toFixed(3)},${g.loc.lon.toFixed(3)}`,
@@ -204,7 +204,7 @@ async function refreshForecasts() {
     })
   )
 
-  out.sort((a, b) => a.label.localeCompare(b.label))
+  out.sort((a: CityCard, b: CityCard) => a.label.localeCompare(b.label))
   cityCards.value = out
   loading.value = false
 }
