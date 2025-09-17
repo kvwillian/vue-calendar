@@ -7,23 +7,7 @@
         class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700">
         <option value="month">Month</option>
         <option value="week">Week</option>
-        <option value="day" disabled>Day (soon)</option>
       </select>
-
-      <div v-if="view === 'month'" class="flex items-center gap-2">
-        <button @click="prev"
-          class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          ←
-        </button>
-        <button @click="today"
-          class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          Today
-        </button>
-        <button @click="next"
-          class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-          →
-        </button>
-      </div>
     </div>
 
     <Calendar v-if="view === 'month'" />
