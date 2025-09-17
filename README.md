@@ -27,7 +27,6 @@ A modern, feature-rich calendar application built with Vue 3 and TypeScript. Thi
 ### Development Tools
 - **Vitest** - Unit testing framework
 - **Vue Test Utils** - Testing utilities for Vue components
-- **Vue TSC** - TypeScript compiler for Vue
 
 ## 📦 Installation
 
@@ -115,6 +114,7 @@ calendar-app/
 
 ### 📅 Calendar Management
 - **Monthly View** - Clean, intuitive monthly calendar display
+- **Week View** - Clean, intuitive week calendar display
 - **Navigation Controls** - Previous/Next month navigation and "Today" button
 - **Responsive Design** - Works seamlessly on desktop and mobile devices
 
@@ -134,27 +134,12 @@ calendar-app/
 ### 💾 Data Persistence
 - **Local Storage** - All reminders saved locally in browser
 - **Automatic Sync** - Changes persist across browser sessions
-- **Data Backup** - Easy export/import of reminder data
 
 ### 🎨 User Interface
 - **Modern Design** - Clean, professional interface with Tailwind CSS
 - **Dark/Light Theme Ready** - Built with theming support
 - **Responsive Layout** - Optimized for all screen sizes
 - **Intuitive Navigation** - Sidebar navigation with active state indicators
-
-### 🔧 Technical Features
-- **TypeScript Support** - Full type safety throughout the application
-- **Composition API** - Modern Vue 3 development patterns
-- **State Management** - Centralized state with Pinia stores
-- **Component Architecture** - Modular, reusable component design
-- **Performance Optimized** - Efficient rendering and caching strategies
-
-### 🚀 Future Enhancements
-- **Week View** - Calendar week view (planned)
-- **Day View** - Detailed day view (planned)
-- **Reminder Notifications** - Browser notification support
-- **Data Export** - Export reminders to various formats
-- **Multi-language Support** - Internationalization
 
 ## 📝 License
 

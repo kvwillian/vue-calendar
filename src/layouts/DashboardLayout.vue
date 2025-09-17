@@ -13,7 +13,7 @@
     </aside>
 
     <!-- Top bar (mobile) -->
-    <header class="lg:hidden sticky top-0 z-20 bg-white dark:bg-pink-200 border-b border-gray-200 dark:border-gray-700">
+    <header class="lg:hidden sticky top-0 z-20 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <TopBar @toggle-sidebar="sidebarOpen=!sidebarOpen" />
     </header>
 
