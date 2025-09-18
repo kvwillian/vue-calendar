@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
     <CalendarHeader />
-    <CalendarGrid @open-day="openAllForDay" @new="openNew" @open-reminder="openEdit" />
+    <CalendarGrid @open-day="$emit('open-day', $event)" @new="openNew" @open-reminder="openEdit" />
 
     <Teleport to="body">
       <ReminderModal
@@ -22,6 +22,10 @@ import CalendarGrid from './CalendarGrid.vue'
 import ReminderModal from './ReminderModal.vue'
 import type { Reminder } from '@/types/Reminder'
 
+defineEmits<{
+  (e: 'open-day', iso: string): void
+}>()
+
 const modalOpen = ref(false)
 const editing = ref<Reminder | null>(null)
 function openNew(dateISO?: string) {
@@ -40,9 +44,6 @@ function openNew(dateISO?: string) {
 function openEdit(rem: Reminder) {
   editing.value = { ...rem }
   modalOpen.value = true
-}
-function openAllForDay(iso: string) {
-  openNew(iso)
 }
 function closeModal() {
   modalOpen.value = false

@@ -108,23 +108,14 @@ describe('Calendar Component', () => {
       expect(modal.props('initial')).toEqual(existingReminder)
     })
 
-    it('should open modal for day with all reminders', async () => {
+    it('should emit open-day event when day cell emits open-day', async () => {
       const calendarGrid = wrapper.findComponent({ name: 'CalendarGrid' })
       const testDate = '2024-01-15'
       
       await calendarGrid.vm.$emit('open-day', testDate)
       
-      const modal = wrapper.findComponent({ name: 'ReminderModal' })
-      expect(modal.exists()).toBe(true)
-      expect(modal.props('initial')).toMatchObject({
-        dateISO: testDate,
-        time: '09:00',
-        text: '',
-        city: '',
-        color: '#3b82f6',
-        loc: null,
-        weather: null
-      })
+      expect(wrapper.emitted('open-day')).toBeTruthy()
+      expect(wrapper.emitted('open-day')[0]).toEqual([testDate])
     })
 
     it('should close modal when close event is emitted', async () => {

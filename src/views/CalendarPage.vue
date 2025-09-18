@@ -10,7 +10,7 @@
       </select>
     </div>
 
-    <Calendar v-if="view === 'month'" />
+    <Calendar v-if="view === 'month'" @open-day="openDayInWeekView" />
 
     <WeekView v-else-if="view === 'week'" :current-date="currentWeekDate" @prev="prev" @next="next" @today="today"
       @create-reminder="createReminder" @open-reminder="openExistingReminder" :preview="previewReminder"
@@ -29,9 +29,11 @@ import WeekView from '@/components/calendar/WeekView.vue'
 import ReminderModal from '@/components/calendar/ReminderModal.vue'
 import type { Reminder } from '@/types/Reminder'
 import { useCalendarStore } from '@/stores/calendar'
+import { useReminders } from '@/stores/reminders'
 
 const view = ref<'month' | 'week' | 'day'>('month')
 const calendarStore = useCalendarStore()
+const remindersStore = useReminders()
 const modalPosition = ref<{ x: number; y: number; rect?: DOMRect } | null>(null)
 const previewReminder = ref<null | { date: Date; hour: number; minute: number }>(null)
 
@@ -112,6 +114,15 @@ function createReminder(payload: { date: Date; hour: number; minute: number; x: 
 }
 
 function openExistingReminder(payload: { id?: string; date: Date; hour?: number; minute?: number }) {
+  if (payload.id) {
+    const existingReminder = remindersStore.items.find(r => r.id === payload.id)
+    if (existingReminder) {
+      draftReminder.value = { ...existingReminder }
+      showReminderModal.value = true
+      return
+    }
+  }
+
   const dt = new Date(payload.date)
   const h = typeof payload.hour === 'number' ? payload.hour : dt.getHours()
   const m = typeof payload.minute === 'number' ? payload.minute : dt.getMinutes()
@@ -134,5 +145,18 @@ function openExistingReminder(payload: { id?: string; date: Date; hour?: number;
 
 function onReminderSaved() {
   // optional: display toast, reload something, etc.
+}
+
+function openDayInWeekView(iso: string) {
+  const date = new Date(iso)
+  
+  const day = date.getDay() // 0 = Sunday
+  const diff = date.getDate() - day
+  const startOfWeek = new Date(date)
+  startOfWeek.setDate(diff)
+  startOfWeek.setHours(0, 0, 0, 0)
+  
+  currentWeekDate.value = startOfWeek
+  view.value = 'week'
 }
 </script> 
