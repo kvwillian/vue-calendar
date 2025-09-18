@@ -30,7 +30,17 @@
         <div class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4">
           <div class="flex items-center justify-between">
             <h2 class="font-medium text-gray-800 dark:text-gray-100">Next reminders</h2>
-            <RouterLink to="/calendar" class="text-blue-700 dark:text-blue-400 hover:underline text-sm">open calendar</RouterLink>
+            <div class="flex items-center gap-2">
+              <button
+                v-if="store.items.length > 0"
+                @click="showDeleteAllModal = true"
+                class="text-sm px-2 py-1 rounded border border-red-300 dark:border-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400"
+                title="Delete all reminders"
+              >
+                Delete all
+              </button>
+              <RouterLink to="/calendar" class="text-blue-700 dark:text-blue-400 hover:underline text-sm">open calendar</RouterLink>
+            </div>
           </div>
 
           <ul v-if="upcoming.length" class="mt-3 divide-y divide-gray-200 dark:divide-gray-700">
@@ -99,6 +109,16 @@
         </div>
       </section>
     </div>
+
+    <!-- Delete All Confirmation Modal -->
+    <ConfirmationModal
+      v-if="showDeleteAllModal"
+      title="Delete All Reminders"
+      message="Are you sure you want to delete all reminders? This action cannot be undone."
+      confirm-text="Delete All"
+      @close="showDeleteAllModal = false"
+      @confirm="handleDeleteAll"
+    />
   </div>
 </template>
 
@@ -107,6 +127,7 @@ import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { useReminders } from '@/stores/reminders'
 import StatCard from '@/components/StatCard.vue'
+import ConfirmationModal from '@/components/ConfirmationModal.vue'
 import {
   addDays, endOfWeek, isAfter, isBefore, isEqual,
   parseISO, startOfDay, startOfWeek, format, compareAsc
@@ -134,6 +155,11 @@ function handleViewReminder(dateISO: string) {
     name: 'calendar',
     query: { view: 'week', date: dateISO }
   })
+}
+
+function handleDeleteAll() {
+  store.removeAll()
+  showDeleteAllModal.value = false
 }
 
 const now = new Date()
@@ -193,6 +219,7 @@ type CityCard = {
 
 const cityCards = ref<CityCard[]>([])
 const loading = ref(false)
+const showDeleteAllModal = ref(false)
 
 async function refreshForecasts() {
   const groups = groupByCity(store.items)

@@ -22,6 +22,10 @@ export const useReminders = defineStore('reminders', () => {
     items.value = items.value.filter(r => r.dateISO !== dateISO)
   }
 
+  function removeAll() {
+    items.value = []
+  }
+
   const byDay = (dateISO: string) => computed(() =>
     items.value
       .filter((r: Reminder) => r.dateISO === dateISO)
@@ -36,7 +40,7 @@ export const useReminders = defineStore('reminders', () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(val))
   }, { deep: true })
 
-  return { items, upsert, remove, removeByDate, byDay, byMonth }
+  return { items, upsert, remove, removeByDate, removeAll, byDay, byMonth }
 })
 
 function loadFromStorage(): Reminder[] {
