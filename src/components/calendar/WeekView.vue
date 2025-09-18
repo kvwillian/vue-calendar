@@ -11,7 +11,7 @@
             @click="emit('prev')"
             class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
           >
-            Previous
+            ‹
           </button>
           <button
             @click="emit('today')"
@@ -23,7 +23,7 @@
             @click="emit('next')"
             class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
           >
-            Next
+            ›
           </button>
         </div>
       </div>
