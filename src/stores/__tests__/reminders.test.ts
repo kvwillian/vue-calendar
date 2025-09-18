@@ -3,7 +3,6 @@ import { setActivePinia, createPinia } from 'pinia'
 import { useReminders } from '../reminders'
 import type { Reminder } from '../../types/Reminder'
 
-// Mock localStorage
 const localStorageMock = {
   getItem: vi.fn(),
   setItem: vi.fn(),
@@ -213,7 +212,6 @@ describe('useReminders Store', () => {
     beforeEach(() => {
       store = useReminders()
       
-      // Add test data
       const reminders: Reminder[] = [
         {
           id: '1',
@@ -268,13 +266,13 @@ describe('useReminders Store', () => {
 
     describe('byMonth', () => {
       it('should return reminders for specific month', () => {
-        const remindersForMonth = store.byMonth(2024, 0) // January 2024
+        const remindersForMonth = store.byMonth(2024, 0)
 
         expect(remindersForMonth.value).toHaveLength(3)
       })
 
       it('should return empty array for month with no reminders', () => {
-        const remindersForMonth = store.byMonth(2024, 5) // June 2024
+        const remindersForMonth = store.byMonth(2024, 5)
 
         expect(remindersForMonth.value).toHaveLength(0)
       })
@@ -297,7 +295,6 @@ describe('useReminders Store', () => {
 
       store.upsert(reminder)
       
-      // Wait for next tick to allow watcher to run
       await new Promise(resolve => setTimeout(resolve, 0))
 
       expect(localStorageMock.setItem).toHaveBeenCalledWith(
@@ -324,7 +321,6 @@ describe('useReminders Store', () => {
 
       store.remove('1')
       
-      // Wait for next tick to allow watcher to run
       await new Promise(resolve => setTimeout(resolve, 0))
 
       expect(localStorageMock.setItem).toHaveBeenCalledWith(

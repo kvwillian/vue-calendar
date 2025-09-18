@@ -4,7 +4,6 @@ import { createPinia, setActivePinia } from 'pinia'
 import Calendar from '../Calendar.vue'
 import type { Reminder } from '../../../types/Reminder'
 
-// Mock the child components
 vi.mock('../CalendarHeader.vue', () => ({
   default: {
     name: 'CalendarHeader',

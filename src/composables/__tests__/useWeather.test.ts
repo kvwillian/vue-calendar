@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useWeather } from '../useWeather'
 
-// Mock fetch
 const mockFetch = vi.fn()
 global.fetch = mockFetch
 

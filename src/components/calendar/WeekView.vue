@@ -161,9 +161,9 @@
   import type { Reminder } from '@/types/Reminder'
   
   /* Configuration */
-  const hourHeight = 64               // px per hour
-  const visibleStartHour = 1          // 1 AM
-  const visibleEndHour = 23           // 11 PM
+  const hourHeight = 64
+  const visibleStartHour = 1
+  const visibleEndHour = 23
   const timezone = 'GMT-03'
   const viewportHeight = 720         
   const defaultDurationMinutes = 60  
@@ -211,7 +211,7 @@
   /* Dates: week boundaries */
   const startOfWeek = computed(() => {
     const date = new Date(props.currentDate)
-    const day = date.getDay() // 0 = Sunday
+    const day = date.getDay()
     const diff = date.getDate() - day
     const sunday = new Date(date)
     sunday.setDate(diff)
@@ -325,7 +325,7 @@
   
       result[dayIndex].push({
         id: r.id,
-        title: r.text || '(Sem título)',
+        title: r.text || '(No title)',
         color: r.color || '#2563eb',
         startISO: start.toISOString(),
         endISO: end.toISOString(),
@@ -378,11 +378,9 @@
     const rect = el.getBoundingClientRect()
     const y = e.clientY - rect.top
   
-    // Identify hour cell
     const hourIndex = Math.floor(y / hourHeight)
     const hour = visibleStartHour + hourIndex
   
-    // Snap minutes to 0/30 within the cell
     const offsetY = y - hourIndex * hourHeight
     const minute = offsetY < hourHeight / 2 ? 0 : 30
   

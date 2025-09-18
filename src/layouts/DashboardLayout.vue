@@ -7,7 +7,7 @@
         'fixed inset-y-0 left-0 w-72 p-3 lg:static transform transition-transform',
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       ]"
-      aria-label="Menu lateral"
+      aria-label="Sidebar menu"
     >
       <SidebarNav @navigate="sidebarOpen=false" />
     </aside>
@@ -33,7 +33,7 @@
     <button
       v-if="sidebarOpen"
       class="fixed inset-0 bg-black/30 lg:hidden"
-      aria-label="Fechar menu"
+      aria-label="Close menu"
       @click="sidebarOpen=false"
     />
   </div>

@@ -50,17 +50,15 @@ const currentMonthYear = computed(() => {
 });
 const previewReminder = ref<null | { date: Date; hour: number; minute: number }>(null)
 
-// Week navigation state
 const currentWeekDate = ref(new Date())
 
-// Route handling
 const route = useRoute()
 
 onMounted(() => {
   if (route.query.view === 'week' && route.query.date) {
     const date = new Date(route.query.date as string)
     if (!isNaN(date.getTime())) {
-      const day = date.getDay() // 0 = Sunday
+      const day = date.getDay()
       const diff = date.getDate() - day
       const startOfWeek = new Date(date)
       startOfWeek.setDate(diff)
@@ -175,13 +173,12 @@ function openExistingReminder(payload: { id?: string; date: Date; hour?: number;
 
 
 function onReminderSaved() {
-  // optional: display toast, reload something, etc.
 }
 
 function openDayInWeekView(iso: string) {
   const date = new Date(iso)
   
-  const day = date.getDay() // 0 = Sunday
+  const day = date.getDay()
   const diff = date.getDate() - day
   const startOfWeek = new Date(date)
   startOfWeek.setDate(diff)

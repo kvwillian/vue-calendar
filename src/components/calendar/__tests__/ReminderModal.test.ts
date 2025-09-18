@@ -6,7 +6,6 @@ import ReminderModal from '../ReminderModal.vue'
 import type { Reminder } from '../../../types/Reminder'
 import type { Location } from '../../../types/Location'
 
-// Mock the stores
 const mockRemindersStore = {
   items: [] as Reminder[],
   upsert: vi.fn(),
@@ -18,7 +17,6 @@ vi.mock('@/stores/reminders', () => ({
   useReminders: () => mockRemindersStore
 }))
 
-// Mock the weather composable
 const mockWeather = {
   getForecastByCoords: vi.fn()
 }
@@ -27,7 +25,6 @@ vi.mock('@/composables/useWeather', () => ({
   useWeather: () => mockWeather
 }))
 
-// Mock CitySelect component
 vi.mock('@/components/CitySelect.vue', () => ({
   default: {
     name: 'CitySelect',
@@ -44,7 +41,6 @@ describe('ReminderModal Component', () => {
     setActivePinia(createPinia())
     vi.clearAllMocks()
     
-    // Mock crypto.randomUUID
     Object.defineProperty(global, 'crypto', {
       value: {
         randomUUID: vi.fn(() => 'test-uuid-123')
@@ -81,7 +77,6 @@ describe('ReminderModal Component', () => {
         weather: null
       }
 
-      // Mock the store to return the reminder (making it an edit)
       mockRemindersStore.items = [existingReminder]
       mockRemindersStore.find.mockReturnValue(true)
 
@@ -105,7 +100,6 @@ describe('ReminderModal Component', () => {
     })
 
     it('should show delete button only when editing', () => {
-      // New reminder - no delete button
       wrapper = mount(ReminderModal, {
         props: { initial: null }
       })
@@ -113,7 +107,6 @@ describe('ReminderModal Component', () => {
 
       wrapper.unmount()
 
-      // Edit reminder - delete button present
       const existingReminder: Reminder = {
         id: 'test-id',
         dateISO: '2024-01-15',
@@ -218,13 +211,11 @@ describe('ReminderModal Component', () => {
     })
 
     it('should submit valid form data', async () => {
-      // Fill form
       await wrapper.find('input[type="date"]').setValue('2024-01-15')
       await wrapper.find('input[type="time"]').setValue('10:00')
       await wrapper.find('input[maxlength="30"]').setValue('Test reminder')
       await wrapper.find('input[type="color"]').setValue('#ff0000')
 
-      // Submit form
       await wrapper.find('form').trigger('submit')
 
       expect(mockRemindersStore.upsert).toHaveBeenCalledWith(
@@ -240,7 +231,6 @@ describe('ReminderModal Component', () => {
     it('should not submit when text is empty', async () => {
       await wrapper.find('input[type="date"]').setValue('2024-01-15')
       await wrapper.find('input[type="time"]').setValue('10:00')
-      // Leave text empty
 
       await wrapper.find('form').trigger('submit')
 
@@ -350,12 +340,10 @@ describe('ReminderModal Component', () => {
         props: { initial: null }
       })
 
-      // Set initial weather
       wrapper.vm.form.weather = { summary: 'Clear sky', icon: '01d' }
       wrapper.vm.form.loc = { name: 'New York', country: 'US', lat: 40.7128, lon: -74.0060 }
       wrapper.vm.form.dateISO = '2024-01-15'
 
-      // Clear location
       wrapper.vm.form.loc = null
 
       await nextTick()
@@ -429,7 +417,6 @@ describe('ReminderModal Component', () => {
         props: { initial: null }
       })
 
-      // Trigger keydown on the document/window level
       const event = new KeyboardEvent('keydown', { key: 'Escape' })
       window.dispatchEvent(event)
 

@@ -1,6 +1,6 @@
 <template>
   <div class="h-14 flex items-center gap-3 px-3 lg:px-5">
-    <button class="lg:hidden p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Abrir menu" @click="$emit('toggle-sidebar')">
+    <button class="lg:hidden p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700" aria-label="Open menu" @click="$emit('toggle-sidebar')">
       <svg viewBox="0 0 24 24" class="w-6 h-6"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
 
@@ -41,7 +41,7 @@
         </button>
       </div>
       
-      <button class="ml-2 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600" aria-label="Conta"></button>
+      <button class="ml-2 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600" aria-label="Account"></button>
     </div>
   </div>
 </template>

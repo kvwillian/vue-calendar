@@ -3,17 +3,15 @@ import { mount } from '@vue/test-utils'
 import { createPinia, setActivePinia } from 'pinia'
 import CalendarGrid from '../CalendarGrid.vue'
 
-// Mock the calendar store
 const mockCalendarStore = {
   year: 2024,
-  month: 0 // January
+  month: 0
 }
 
 vi.mock('@/stores/calendar', () => ({
   useCalendarStore: () => mockCalendarStore
 }))
 
-// Mock the calendar composable
 const mockCalendarGrid = {
   days: [
     { iso: '2023-12-31', inMonth: false },
@@ -58,7 +56,6 @@ vi.mock('@/composables/useCalendar', () => ({
   useCalendarGrid: () => mockCalendarGrid
 }))
 
-// Mock DayCell component
 vi.mock('../DayCell.vue', () => ({
   default: {
     name: 'DayCell',
@@ -119,7 +116,6 @@ describe('CalendarGrid Component', () => {
 
       const dayCells = wrapper.findAll('[data-testid="day-cell"]')
       
-      // Check first few cells
       expect(dayCells[0].attributes('data-iso')).toBe('2023-12-31')
       expect(dayCells[0].attributes('data-in-month')).toBe('false')
       
@@ -140,7 +136,7 @@ describe('CalendarGrid Component', () => {
       wrapper = mount(CalendarGrid)
 
       const dayCells = wrapper.findAll('[data-testid="day-cell"]')
-      await dayCells[1].trigger('click') // Click on 2024-01-01
+      await dayCells[1].trigger('click')
 
       expect(wrapper.emitted('new')).toBeTruthy()
       expect(wrapper.emitted('new')[0]).toEqual(['2024-01-01'])
@@ -150,7 +146,7 @@ describe('CalendarGrid Component', () => {
       wrapper = mount(CalendarGrid)
 
       const dayCells = wrapper.findAll('[data-testid="day-cell"]')
-      await dayCells[1].trigger('dblclick') // Double click on 2024-01-01
+      await dayCells[1].trigger('dblclick')
 
       expect(wrapper.emitted('open-day')).toBeTruthy()
       expect(wrapper.emitted('open-day')[0]).toEqual(['2024-01-01'])
@@ -187,7 +183,6 @@ describe('CalendarGrid Component', () => {
     it('should use calendar store data for grid generation', () => {
       wrapper = mount(CalendarGrid)
 
-      // The component should use the mocked calendar store
       expect(mockCalendarStore.year).toBe(2024)
       expect(mockCalendarStore.month).toBe(0)
     })
@@ -198,7 +193,6 @@ describe('CalendarGrid Component', () => {
       const dayCells = wrapper.findAll('[data-testid="day-cell"]')
       expect(dayCells).toHaveLength(mockCalendarGrid.days.length)
 
-      // Verify each day cell has the correct ISO date
       mockCalendarGrid.days.forEach((day, index) => {
         expect(dayCells[index].attributes('data-iso')).toBe(day.iso)
         expect(dayCells[index].attributes('data-in-month')).toBe(day.inMonth.toString())

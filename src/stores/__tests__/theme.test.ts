@@ -9,10 +9,8 @@ describe('useThemeStore', () => {
   let store: ReturnType<typeof useThemeStore>;
 
   beforeEach(() => {
-    // fresh Pinia for each test
     setActivePinia(createPinia());
 
-    // mock localStorage
     const localStorageMock = (() => {
       let backing: Record<string, string> = {};
       return {
@@ -27,25 +25,22 @@ describe('useThemeStore', () => {
       configurable: true,
     });
 
-    // mock matchMedia: DEFAULT = NOT DARK
     Object.defineProperty(window, 'matchMedia', {
       configurable: true,
       value: vi.fn().mockImplementation((query: string) => ({
-        matches: false, // keep default "light" for most tests
+        matches: false,
         media: query,
         onchange: null,
-        addListener: vi.fn(),          // legacy
-        removeListener: vi.fn(),       // legacy
-        addEventListener: vi.fn(),     // modern
-        removeEventListener: vi.fn(),  // modern
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
         dispatchEvent: vi.fn(),
       })),
     });
 
-    // reset document classList
     document.documentElement.className = '';
 
-    // create the store AFTER mocks are set
     store = useThemeStore();
   });
 
@@ -61,10 +56,8 @@ describe('useThemeStore', () => {
   });
 
   it('loads dark theme from localStorage', () => {
-    // For this test, simulate stored preference BEFORE store creation
     window.localStorage.getItem = vi.fn().mockReturnValue('dark');
 
-    // Recreate Pinia & store to take the altered boot path
     setActivePinia(createPinia());
     const s = useThemeStore();
 
@@ -74,9 +67,8 @@ describe('useThemeStore', () => {
   });
 
   it('falls back to system dark preference when no localStorage', () => {
-    // For this test only, pretend system prefers dark
     (window.matchMedia as unknown as Mock).mockImplementationOnce((query: string) => ({
-      matches: query === '(prefers-color-scheme: dark)', // true for the dark query
+      matches: query === '(prefers-color-scheme: dark)',
       media: query,
       onchange: null,
       addListener: vi.fn(),
@@ -86,7 +78,6 @@ describe('useThemeStore', () => {
       dispatchEvent: vi.fn(),
     }));
 
-    // Recreate Pinia & store to apply the changed matchMedia
     setActivePinia(createPinia());
     const s = useThemeStore();
 
@@ -94,7 +85,6 @@ describe('useThemeStore', () => {
   });
 
   it('toggleTheme switches between light and dark', () => {
-    // starts light (because default matchMedia=false and no localStorage)
     expect(store.currentTheme).toBe(store.THEMES.LIGHT);
 
     store.toggleTheme();
