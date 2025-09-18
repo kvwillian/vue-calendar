@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-6">
-    <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Home</h1>
+    <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100">Home</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       <StatCard
@@ -27,27 +27,27 @@
 
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
       <section class="xl:col-span-2">
-        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4">
           <div class="flex items-center justify-between">
-            <h2 class="font-medium text-gray-900 dark:text-gray-100">Next reminders</h2>
+            <h2 class="font-medium text-gray-800 dark:text-gray-100">Next reminders</h2>
             <RouterLink to="/calendar" class="text-blue-700 dark:text-blue-400 hover:underline text-sm">open calendar</RouterLink>
           </div>
 
           <ul v-if="upcoming.length" class="mt-3 divide-y divide-gray-200 dark:divide-gray-700">
             <li v-for="r in upcoming" :key="r.id" class="py-2 flex items-center gap-3">
               <span class="w-2.5 h-2.5 rounded-full" :style="{ backgroundColor: r.color }"></span>
-              <div class="min-w-32 text-sm tabular-nums text-gray-700 dark:text-gray-300">
+              <div class="min-w-32 text-sm tabular-nums text-gray-600 dark:text-gray-300">
                 {{ formatDate(r.dateISO) }} · {{ r.time }}
               </div>
               <div class="flex-1 min-w-0">
-                <div class="text-sm truncate font-medium text-gray-900 dark:text-gray-100">{{ r.text }}</div>
+                <div class="text-sm truncate font-medium text-gray-800 dark:text-gray-100">{{ r.text }}</div>
                 <div class="text-xs text-gray-500 dark:text-gray-400 truncate">
                   {{ r.city }} <span v-if="r.weather">• {{ r.weather.summary }}</span>
                 </div>
               </div>
               <button
                 @click="handleViewReminder(r.dateISO)"
-                class="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 shrink-0"
+                class="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 shrink-0"
                 title="Open in calendar"
               >view</button>
             </li>
@@ -60,11 +60,11 @@
       </section>
 
       <section>
-        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+        <div class="bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-4">
           <div class="flex items-center justify-between">
-            <h2 class="font-medium text-gray-900 dark:text-gray-100">Weather by city</h2>
+            <h2 class="font-medium text-gray-800 dark:text-gray-100">Weather by city</h2>
             <button
-              class="text-sm px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+              class="text-sm px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
               @click="refreshForecasts"
               :disabled="loading"
             >
@@ -76,10 +76,10 @@
             <div
               v-for="c in cityCards"
               :key="c.key"
-              class="border border-gray-200 dark:border-gray-700 rounded-lg p-3 flex items-center gap-3 bg-gray-50 dark:bg-gray-700"
+              class="border border-gray-300 dark:border-gray-700 rounded-lg p-3 flex items-center gap-3 bg-gray-100 dark:bg-gray-700"
             >
               <div class="flex-1 min-w-0">
-                <div class="font-medium truncate text-gray-900 dark:text-gray-100">
+                <div class="font-medium truncate text-gray-800 dark:text-gray-100">
                   {{ c.label }}
                 </div>
                 <div class="text-xs text-gray-500 dark:text-gray-400">
@@ -87,7 +87,7 @@
                 </div>
                 <div class="mt-1 text-sm flex items-center gap-2">
                   <img v-if="c.iconUrl" :src="c.iconUrl" alt="" class="w-6 h-6" />
-                  <span class="truncate text-gray-700 dark:text-gray-300">{{ c.summary || '—' }}</span>
+                  <span class="truncate text-gray-600 dark:text-gray-300">{{ c.summary || '—' }}</span>
                 </div>
               </div>
             </div>

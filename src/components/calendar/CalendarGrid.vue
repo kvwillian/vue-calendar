@@ -3,7 +3,7 @@
     <div class="grid grid-cols-7 text-xs text-gray-500 dark:text-gray-400 px-1 pb-2">
       <div v-for="w in weekdays" :key="w" class="px-1">{{ w }}</div>
     </div>
-    <div class="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700 rounded overflow-hidden">
+    <div class="grid grid-cols-7 gap-px bg-gray-300 dark:bg-gray-700 rounded overflow-hidden">
       <DayCell
         v-for="d in days"
         :key="d.iso"

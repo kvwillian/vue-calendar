@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+  <div class="bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-700">
     <CalendarHeader />
     <CalendarGrid @open-day="$emit('open-day', $event)" @new="openNew" @open-reminder="openEdit" />
 

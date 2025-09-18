@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  html { @apply text-gray-900; }
+  html { @apply text-gray-800; }
   html.dark { @apply text-gray-100; }
 }
 

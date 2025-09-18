@@ -4,7 +4,7 @@
 
     <div class="flex flex-wrap items-center gap-2">
       <select v-model="view"
-        class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700">
+        class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
         <option value="month">Month</option>
         <option value="week">Week</option>
       </select>

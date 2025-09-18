@@ -9,19 +9,19 @@
         <div class="flex items-center gap-2">
           <button
             @click="emit('prev')"
-            class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+            class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
           >
             Previous
           </button>
           <button
             @click="emit('today')"
-            class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+            class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
           >
             Today
           </button>
           <button
             @click="emit('next')"
-            class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
+            class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
           >
             Next
           </button>
@@ -30,7 +30,7 @@
   
       <!-- Week View Container -->
       <div
-        class="flex flex-col rounded-2xl overflow-hidden bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700"
+        class="flex flex-col rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100 border border-gray-300 dark:border-gray-700"
       >
         <!-- Header row: timezone + weekdays -->
         <div class="grid" :style="gridCols">
@@ -74,7 +74,7 @@
               <div
                 v-for="h in hours"
                 :key="h"
-                class="relative border-t border-gray-200 dark:border-gray-600 first:border-t-0"
+                class="relative border-t border-gray-100 dark:border-gray-600 first:border-t-0"
               >
                 <div
                   class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-gray-500 dark:text-gray-400"
@@ -89,8 +89,8 @@
               <div
                 v-for="(d, dayIndex) in days"
                 :key="dayIndex"
-                class="relative border-l first:border-l-0 border-gray-200 dark:border-gray-600"
-                :class="isToday(d.date) ? 'bg-blue-50/30 dark:bg-blue-900/20' : ''"
+                class="relative border-l first:border-l-0 border-gray-300 dark:border-gray-600"
+                :class="isToday(d.date) ? 'bg-gray-200 dark:bg-blue-900/20' : ''"
                 @click="onGridClick($event, d.date)"
               >
                 <!-- Hour grid lines -->
@@ -101,7 +101,7 @@
                   <div
                     v-for="(_, i) in rows"
                     :key="i"
-                    class="border-t border-gray-200 dark:border-gray-600 first:border-t-0"
+                    class="border-t border-gray-300 dark:border-gray-600 first:border-t-0"
                   />
                 </div>
   
@@ -128,10 +128,10 @@
                   tabindex="0"
                   @click.stop="onOpenEvent(ev)"
                 >
-                  <div class="text-sm font-semibold truncate dark:text-gray-900">
+                  <div class="text-sm font-semibold truncate dark:text-gray-800">
                     {{ ev.title }}
                   </div>
-                  <div class="text-xs opacity-90 dark:text-gray-900">
+                  <div class="text-xs opacity-90 dark:text-gray-800">
                     {{ formatTimeRange(ev.startISO, ev.endISO) }}
                   </div>
                 </div>
