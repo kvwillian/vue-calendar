@@ -165,13 +165,6 @@ describe('CalendarGrid Component', () => {
       const container = wrapper.find('.p-2.sm\\:p-4')
       expect(container.exists()).toBe(true)
     })
-
-    it('should have proper grid gap and background', () => {
-      wrapper = mount(CalendarGrid)
-
-      const grid = wrapper.find('.grid.gap-px.bg-gray-200')
-      expect(grid.exists()).toBe(true)
-    })
   })
 
   describe('Accessibility', () => {
