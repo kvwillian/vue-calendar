@@ -64,6 +64,23 @@ A modern, feature-rich calendar application built with Vue 3 and TypeScript. Thi
    yarn dev
    ```
 
+> **Live Demo**: The app runs on `http://localhost:5173/` after starting the development server.
+
+
+5. **Run tests**
+   ```bash
+   npm test
+   # or
+   yarn test
+   ```
+
+## 🛠️ Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm test` - Run unit tests
+
 ## 📁 Folder Structure
 
 ```
@@ -77,9 +94,12 @@ calendar-app/
 │   │   │   ├── CalendarGrid.vue
 │   │   │   ├── CalendarHeader.vue
 │   │   │   ├── DayCell.vue
-│   │   │   └── ReminderModal.vue
+│   │   │   ├── ReminderModal.vue
+│   │   │   └── WeekView.vue
 │   │   ├── CitySelect.vue
+│   │   ├── ConfirmationModal.vue
 │   │   ├── SidebarNav.vue
+│   │   ├── StatCard.vue
 │   │   └── TopBar.vue
 │   ├── composables/       # Vue 3 composables
 │   │   ├── useCalendar.ts
@@ -140,6 +160,10 @@ calendar-app/
 - **Dark/Light Theme Ready** - Built with theming support
 - **Responsive Layout** - Optimized for all screen sizes
 - **Intuitive Navigation** - Sidebar navigation with active state indicators
+
+### 🧪 Testing
+- **Comprehensive Test Suite** - 90+ unit tests
+- **Component Testing** - Vue Test Utils for component behavior
 
 ## 📝 License
 
