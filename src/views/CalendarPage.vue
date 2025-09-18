@@ -23,7 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import Calendar from '@/components/calendar/Calendar.vue'
 import WeekView from '@/components/calendar/WeekView.vue'
 import ReminderModal from '@/components/calendar/ReminderModal.vue'
@@ -37,9 +38,27 @@ const remindersStore = useReminders()
 const modalPosition = ref<{ x: number; y: number; rect?: DOMRect } | null>(null)
 const previewReminder = ref<null | { date: Date; hour: number; minute: number }>(null)
 
-
 // Week navigation state
 const currentWeekDate = ref(new Date())
+
+// Route handling
+const route = useRoute()
+
+onMounted(() => {
+  if (route.query.view === 'week' && route.query.date) {
+    const date = new Date(route.query.date as string)
+    if (!isNaN(date.getTime())) {
+      const day = date.getDay() // 0 = Sunday
+      const diff = date.getDate() - day
+      const startOfWeek = new Date(date)
+      startOfWeek.setDate(diff)
+      startOfWeek.setHours(0, 0, 0, 0)
+      
+      currentWeekDate.value = startOfWeek
+      view.value = 'week'
+    }
+  }
+})
 
 function prev() {
   if (view.value === 'month') {

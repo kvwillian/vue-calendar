@@ -45,11 +45,11 @@
                   {{ r.city }} <span v-if="r.weather">• {{ r.weather.summary }}</span>
                 </div>
               </div>
-              <RouterLink
-                to="/calendar"
+              <button
+                @click="handleViewReminder(r.dateISO)"
                 class="text-xs px-2 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 shrink-0"
                 title="Open in calendar"
-              >view</RouterLink>
+              >view</button>
             </li>
           </ul>
 
@@ -104,6 +104,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue'
+import { useRouter } from 'vue-router'
 import { useReminders } from '@/stores/reminders'
 import StatCard from '@/components/StatCard.vue'
 import {
@@ -114,6 +115,7 @@ import { useWeather } from '@/composables/useWeather'
 import type { Location } from '@/types/Location'
 import type { Reminder } from '@/types/Reminder'
 
+const router = useRouter()
 const store = useReminders()
 const weather = useWeather()
 
@@ -125,6 +127,13 @@ function toDateTimeISO(dISO: string, time: string) {
 }
 function formatDate(dISO: string) {
   return format(parseISO(dISO), 'EEE, MMM d')
+}
+
+function handleViewReminder(dateISO: string) {
+  router.push({
+    name: 'calendar',
+    query: { view: 'week', date: dateISO }
+  })
 }
 
 const now = new Date()
