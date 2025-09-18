@@ -134,9 +134,13 @@ calendar-app/
 
 ### 📅 Calendar Management
 - **Monthly View** - Clean, intuitive monthly calendar display
+- <img width="1853" height="943" alt="image" src="https://github.com/user-attachments/assets/9ee0525d-fcc2-4030-aef1-062c31e93c71" />
 - **Week View** - Clean, intuitive week calendar display
+- <img width="1602" height="891" alt="image" src="https://github.com/user-attachments/assets/9d35b90f-105b-4c94-904e-927c0b25a9d8" />
 - **Navigation Controls** - Previous/Next month navigation and "Today" button
 - **Responsive Design** - Works seamlessly on desktop and mobile devices
+- <img width="395" height="864" alt="image" src="https://github.com/user-attachments/assets/86010a44-a128-401d-b477-6f3abe86d236" />
+
 
 ### 🔔 Reminder System
 - **Create Reminders** - Add new reminders with date, time, and description
