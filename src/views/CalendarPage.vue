@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-4">
-    <h1 class="text-2xl font-semibold">Calendar</h1>
-
+    <h1 class="text-2xl font-semibold">{{ currentMonthYear }}</h1>
+ 
     <div class="flex flex-wrap items-center gap-2">
       <select v-model="view"
         class="px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-700">
@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Calendar from '@/components/calendar/Calendar.vue'
 import WeekView from '@/components/calendar/WeekView.vue'
@@ -36,6 +36,18 @@ const view = ref<'month' | 'week' | 'day'>('month')
 const calendarStore = useCalendarStore()
 const remindersStore = useReminders()
 const modalPosition = ref<{ x: number; y: number; rect?: DOMRect } | null>(null)
+
+const currentMonthYear = computed(() => {
+  let date;
+
+  if (view.value === 'week') {
+    date = currentWeekDate.value;
+  } else {
+    date = new Date(calendarStore.year, calendarStore.month, 1);
+  }
+  
+  return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long' }).format(date);
+});
 const previewReminder = ref<null | { date: Date; hour: number; minute: number }>(null)
 
 // Week navigation state
